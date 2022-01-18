@@ -1,0 +1,9 @@
+body{
+    background-color: blue;
+}
+.container{
+    max-width: 800px;
+}
+.buttons{
+    margin-left: 5px;
+}
