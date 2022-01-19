@@ -20,7 +20,6 @@ def index(request):
 def done_task(request, pk):
     task = Task.objects.get(id=pk)
     task.done = True
-    task.done_time = datetime.utcnow()
     task.save()
     return redirect('index')
 
