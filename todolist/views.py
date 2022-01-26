@@ -7,8 +7,9 @@ from datetime import datetime
 
 def index(request):
     form = TaskForm()
-    tasks = Task.objects.all()
-    context = {'tasks': tasks, 'task_form': form}
+    tasks = Task.objects.filter(done=False)
+    done_tasks = Task.objects.filter(done=True)
+    context = {'tasks': tasks, 'done_tasks': done_tasks, 'task_form': form}
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -19,7 +20,11 @@ def index(request):
 
 def done_task(request, pk):
     task = Task.objects.get(id=pk)
-    task.done = True
+    if task.done:
+        task.done = False
+    else:
+        task.done = True
+    task.done_time = datetime.utcnow()
     task.save()
     return redirect('index')
 
